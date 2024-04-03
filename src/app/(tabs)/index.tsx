@@ -1,7 +1,9 @@
-import { useInfiniteListOfRepos } from "@/api";
+import { Repo, useInfiniteListOfRepos } from "@/api";
 import { View } from "react-native";
-import { Spinner, Text } from "tamagui";
+import { Spinner, Text, styled } from "tamagui";
 import { FlashList } from "@shopify/flash-list";
+
+import RepoListItem from "@/components/list/repo-list-item";
 
 export default function TabOneScreen() {
   const {
@@ -15,14 +17,8 @@ export default function TabOneScreen() {
     ...result
   } = useInfiniteListOfRepos("facebook");
 
-  const renderItem = ({ item }) => (
-    <View>
-      <Text>
-        {/* {JSON.stringify(item)} */}
-        {item.name} - Stars: {item.stargazers_count}
-      </Text>
-      <Text>{item.description}</Text>
-    </View>
+  const renderItem = ({ item }: {item: Repo}) => (
+    <RepoListItem item={item} />
   );
 
   if (isLoading) {
@@ -55,11 +51,15 @@ export default function TabOneScreen() {
 
   return (
     <View style={{ flex: 1 }}>
+      {/* <RepoListItem item={{ id: 13434, name: "testName", description: "lorem imoioausd oiausd oiasud ioasuodi uasiodu", stargazers_count: 1344 }} />
+      <RepoListItem item={{ id: 13434, name: "testName", description: "lorem imoioausd oiausd oiasud ioasuodi uasiodu", stargazers_count: 1344 }} />
+      <RepoListItem item={{ id: 13434, name: "testName", description: "lorem imoioausd oiausd oiasud ioasuodi uasiodu", stargazers_count: 1344 }} />
+      <RepoListItem item={{ id: 13434, name: "testName", description: "lorem imoioausd oiausd oiasud ioasuodi uasiodu", stargazers_count: 1344 }} /> */}
       <FlashList
         data={flattenData}
         renderItem={renderItem}
-        // estimatedItemSize={300}
-        keyExtractor={(item) => item?.id}
+        estimatedItemSize={100}
+        keyExtractor={(item) => item?.id.toString()}
         onEndReached={loadNextPageData}
       />
       {isFetching && (
@@ -70,3 +70,4 @@ export default function TabOneScreen() {
     </View>
   );
 }
+

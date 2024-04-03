@@ -1,5 +1,12 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
+export type Repo = {
+  id: number;
+  name: string;
+  description: string;
+  stargazers_count: number;
+};
+
 export function useGetListOfRepos(org: string) {
   return useQuery({
     queryKey: ["org", org],

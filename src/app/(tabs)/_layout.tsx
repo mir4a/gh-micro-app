@@ -1,13 +1,13 @@
 import { ListIcon, SettingIcon } from '@/components/icons'
 import { Link, Tabs } from 'expo-router'
 import { Pressable } from 'react-native'
-import { Text } from 'tamagui'
+import { Text, getTokens } from 'tamagui'
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: 'red',
+        tabBarActiveTintColor: getTokens().color.$orange11Light.val,
       }}
     >
       <Tabs.Screen

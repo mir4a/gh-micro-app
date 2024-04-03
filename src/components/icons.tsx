@@ -26,5 +26,11 @@ export const SettingIcon = () => (
   />
 )
 
+export const StarIcon = () => (
+  <ThemedIcon
+    lightSource={require('../../assets/icons/star.png')}
+    darkSource={require('../../assets/icons/star-dark.png')}
+  />
+)
 
 
