@@ -18,7 +18,7 @@ export default function TabLayout() {
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
-                <Text>Hello!</Text>
+                <Text padding={5}>👋🏻 Hey!</Text>
               </Pressable>
             </Link>
           ),

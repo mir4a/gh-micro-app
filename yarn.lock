@@ -7006,6 +7006,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-application@npm:~5.8.3":
+  version: 5.8.3
+  resolution: "expo-application@npm:5.8.3"
+  peerDependencies:
+    expo: "*"
+  checksum: 5b7d8f3df4cf658a89e62fe25ce00b91c3217bc59115d3a43fd3c4bff38f3c5593568913f59027244196dedeb5766fce98dc58f12bdd30c12581b1b52e51d718
+  languageName: node
+  linkType: hard
+
 "expo-asset@npm:~9.0.2":
   version: 9.0.2
   resolution: "expo-asset@npm:9.0.2"
@@ -7221,6 +7230,7 @@ __metadata:
     "@types/react": "npm:~18.2.14"
     babel-preset-expo: "npm:^10.0.1"
     expo: "npm:~50.0.6"
+    expo-application: "npm:~5.8.3"
     expo-dev-client: "npm:~3.3.11"
     expo-font: "npm:~11.10.2"
     expo-linking: "npm:~6.2.1"
