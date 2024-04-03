@@ -1,3 +1,4 @@
+import { ListIcon, SettingIcon } from '@/components/icons'
 import { Link, Tabs } from 'expo-router'
 import { Pressable } from 'react-native'
 import { Text } from 'tamagui'
@@ -12,8 +13,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <Text>Hello!</Text>,
+          title: 'Repositories',
+          tabBarIcon: ({ color }) => <ListIcon />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -26,8 +27,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="two"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <Text>Hello!</Text>,
+          title: 'Settings',
+          tabBarIcon: ({ color }) => <SettingIcon />,
         }}
       />
     </Tabs>
