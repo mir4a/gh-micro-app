@@ -1,9 +1,8 @@
-import { Text, View, H4, Paragraph } from "tamagui";
+import { View, Paragraph } from "tamagui";
 
 export default function ModalScreen() {
   return (
     <View padding={20}>
-      <H4 marginBottom={20}>Hey there! 👋🏻</H4>
       <Paragraph marginBottom={10}>
         This app fetching data from GitHub API and displaying it in a list. The
         data is paginated and fetched in an infinite scroll fashion.

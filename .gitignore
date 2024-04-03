@@ -61,3 +61,8 @@ apps/studio/types/**
 
 # editor settings
 .vscode
+
+
+# ignore native builds
+ios
+android
