@@ -2,6 +2,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { SplashScreen, Stack } from 'expo-router'
 import { useColorScheme } from 'react-native'
 import { TamaguiProvider } from 'tamagui'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import '../../tamagui-web.css'
 
@@ -21,6 +22,8 @@ export const unstable_settings = {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
+
+const queryClient = new QueryClient()
 
 export default function RootLayout() {
   const [interLoaded, interError] = useFonts({
@@ -48,10 +51,12 @@ function RootLayoutNav() {
   return (
     <TamaguiProvider config={config} defaultTheme={colorScheme as any}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <QueryClientProvider client={queryClient}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         </Stack>
+      </QueryClientProvider>
       </ThemeProvider>
     </TamaguiProvider>
   )
