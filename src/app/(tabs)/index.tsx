@@ -1,6 +1,7 @@
-import { useGetListOfRepos, useInfiniteListOfRepos } from "@/api";
-import { VirtualizedList } from "react-native";
-import { ScrollView, Spinner, Text, View } from "tamagui";
+import { useInfiniteListOfRepos } from "@/api";
+import { View } from "react-native";
+import { Spinner, Text } from "tamagui";
+import { FlashList } from "@shopify/flash-list";
 
 export default function TabOneScreen() {
   const {
@@ -14,7 +15,7 @@ export default function TabOneScreen() {
     ...result
   } = useInfiniteListOfRepos("facebook");
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <View>
       <Text>
         {/* {JSON.stringify(item)} */}
@@ -26,7 +27,7 @@ export default function TabOneScreen() {
 
   if (isLoading) {
     return (
-      <View flex={1} alignItems="center" justifyContent="center">
+      <View>
         <Spinner size="large" />
       </View>
     );
@@ -34,7 +35,7 @@ export default function TabOneScreen() {
 
   if (isError) {
     return (
-      <View flex={1} alignItems="center">
+      <View>
         <Text>There was an error fetching the data</Text>
       </View>
     );
@@ -44,22 +45,28 @@ export default function TabOneScreen() {
     return null;
   }
 
+  const flattenData = result.data?.pages.flatMap((page) => page.data);
+
+  const loadNextPageData = () => {
+    if (hasNextPage && !isFetching) {
+      fetchNextPage();
+    }
+  };
+
   return (
-    <View flex={1} alignItems="center">
-      <VirtualizedList
-        data={result?.data?.pages.reduce((acc, page) => [...acc, ...page.data], [])}
+    <View style={{ flex: 1 }}>
+      <FlashList
+        data={flattenData}
         renderItem={renderItem}
-        keyExtractor={(item) => { 
-          // debugger;
-           return item?.id?.toString()}}
-        getItemCount={(data) => data.length}
-        getItem={(data, index) => data[index]}
-        onEndReached={() => fetchNextPage()}
-        // onRefresh={() => fetchNextPage()}
+        // estimatedItemSize={300}
+        keyExtractor={(item) => item?.id}
+        onEndReached={loadNextPageData}
       />
-      {/* <ScrollView>
-        <Text>{JSON.stringify(result)}</Text>
-      </ScrollView> */}
+      {isFetching && (
+        <View>
+          <Spinner size="small" />
+        </View>
+      )}
     </View>
   );
 }

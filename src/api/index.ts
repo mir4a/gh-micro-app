@@ -27,10 +27,13 @@ export function useInfiniteListOfRepos(org: string) {
     queryKey: ["org-infinite", org],
     queryFn: async ({ pageParam }) => {
       const response = await fetch(
-        `https://api.github.com/search/repositories?q=org:${org}&sort=stars&order=desc&page=${pageParam}&per_page=${PER_PAGE}`,
+        `https://api.github.com/search/repositories?q=org:${org}&sort=id&order=desc&page=${pageParam}&per_page=${PER_PAGE}`,
         {
           headers: {
             Accept: "application/vnd.github.v3+json",
+            ...(process.env.EXPO_PUBLIC_GITHUB_TOKEN && {
+              Authorization: process.env.EXPO_PUBLIC_GITHUB_TOKEN,
+            }),
           },
         }
       );
@@ -40,7 +43,7 @@ export function useInfiniteListOfRepos(org: string) {
       const result = await response.json();
       return { data: result.items, total: result.total_count, page: pageParam };
     },
-    initialPageParam: 0,
+    initialPageParam: 1,
     getNextPageParam: ({ total, page }) => {
       const pages = Math.ceil(total / PER_PAGE);
       return page + 1 <= pages ? page + 1 : undefined;
