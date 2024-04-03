@@ -51,16 +51,13 @@ export default function TabOneScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* <RepoListItem item={{ id: 13434, name: "testName", description: "lorem imoioausd oiausd oiasud ioasuodi uasiodu", stargazers_count: 1344 }} />
-      <RepoListItem item={{ id: 13434, name: "testName", description: "lorem imoioausd oiausd oiasud ioasuodi uasiodu", stargazers_count: 1344 }} />
-      <RepoListItem item={{ id: 13434, name: "testName", description: "lorem imoioausd oiausd oiasud ioasuodi uasiodu", stargazers_count: 1344 }} />
-      <RepoListItem item={{ id: 13434, name: "testName", description: "lorem imoioausd oiausd oiasud ioasuodi uasiodu", stargazers_count: 1344 }} /> */}
       <FlashList
         data={flattenData}
         renderItem={renderItem}
         estimatedItemSize={100}
         keyExtractor={(item) => item?.id.toString()}
         onEndReached={loadNextPageData}
+        onEndReachedThreshold={0.5}
       />
       {isFetching && (
         <View>
